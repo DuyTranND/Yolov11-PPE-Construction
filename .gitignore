@@ -1,0 +1,86 @@
+# ---------- Python / uv virtual env ----------
+.venv/
+
+# ---------- Python bytecode ----------
+__pycache__/
+*.py[cod]
+*$py.class
+
+# ---------- Build artifacts ----------
+build/
+dist/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+.hatch/
+.cache/
+
+# ---------- Editors / IDE ----------
+.vscode/
+.idea/
+*.code-workspace
+
+# ---------- OS junk ----------
+.DS_Store
+Thumbs.db
+
+# ---------- Logs / coverage / tooling ----------
+*.log
+logs/
+.coverage
+.coverage.*
+htmlcov/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.pyre/
+.pytype/
+
+# ---------- Notebooks ----------
+.ipynb_checkpoints/
+
+# ---------- App outputs ----------
+runs/**                # Ultralytics outputs
+outputs/**             # Your custom outputs
+uploads/**
+tmp/
+temp/
+!runs/.gitkeep
+!outputs/.gitkeep
+
+# ---------- Models and large artifacts ----------
+models/**
+checkpoints/**
+weights/**
+!models/README.md
+!models/.gitkeep
+!checkpoints/.gitkeep
+!weights/.gitkeep
+
+# If you sometimes drop weights outside the folders above, also ignore by extension:
+# *.pt
+# *.onnx
+# *.engine
+# *.plan
+# *.trt
+# *.pth
+
+# ---------- Media (optional, keep if large) ----------
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.webm
+
+# ---------- Env files / secrets ----------
+.env
+.env.*
+.env.local
+
+# ---------- Gradio cache ----------
+gradio_cached_examples/
+
+# ---------- Node (if any web UI later) ----------
+node_modules/
+
+# Note: keep uv.lock committed for reproducible installs.
