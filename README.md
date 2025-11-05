@@ -7,6 +7,8 @@ A production-ready Construction Site Personal Protective Equipment (PPE) detecti
   <em>Camera/Video -> frames -> YOLOv11 PPE detector -> annotated images + JSON via FastAPI -> Gradio UI</em>
 </p>
 
+---
+
 ## Features
 
 - **FastAPI Backend**: RESTful API for PPE detection with image processing
