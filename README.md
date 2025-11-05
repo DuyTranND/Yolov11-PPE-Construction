@@ -4,7 +4,7 @@ A production-ready Construction Site Personal Protective Equipment (PPE) detecti
 
 <p align="center">
 
-  <img src="pipeline.png" alt="Pipeline" width="85%"><br>
+  <img src="pipeline_.png" alt="Pipeline" width="85%"><br>
 
   <em>Camera/Video -> frames -> YOLOv11 PPE detector -> annotated images + JSON via FastAPI -> Gradio UI</em>
 
