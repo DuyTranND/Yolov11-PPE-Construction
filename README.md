@@ -2,6 +2,14 @@
 
 A production-ready Construction Site Personal Protective Equipment (PPE) detection system built with FastAPI backend and Gradio frontend.
 
+<p align="center">
+
+  <img src="pipeline.png" alt="Pipeline" width="85%"><br>
+
+  <em>Camera/Video -> frames -> YOLOv11 PPE detector -> annotated images + JSON via FastAPI -> Gradio UI</em>
+
+</p>
+
 ## Features
 
 - **FastAPI Backend**: RESTful API for PPE detection with image processing
