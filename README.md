@@ -11,7 +11,7 @@ A production-ready Construction Site Personal Protective Equipment (PPE) detecti
 
 ## Demo
 
-<video src="docs/demo.mp4" controls width="85%"></video>
+[▶ Watch the demo on YouTube](https://youtu.be/DGafnpOU2g8)
 
 ---
 
