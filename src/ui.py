@@ -367,17 +367,33 @@ with gr.Blocks(
     title="🦺 PPE Detection System - Real-time",
     theme=gr.themes.Soft(),
     css="""
-        .gradio-container {
-            max-width: 1400px !important;
-            margin: auto !important;
-        }
-        #api-status {
-            text-align: center;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
+    /* 1) Toàn bộ app full-width */
+    .gradio-container {
+        max-width: 100vw !important;
+        width: 100% !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        margin: 0 auto !important;
+    }
+
+    /* 2) Markdown (prose) mặc định bị giới hạn 65ch – mở rộng nó */
+    .gradio-container .prose {
+        max-width: 100% !important;
+    }
+
+    /* 3) Cho media chiếm trọn chiều ngang của cột */
+    .gradio-container .gr-image,
+    .gradio-container .gr-video {
+        width: 100% !important;
+    }
+    .gradio-container .gr-image img,
+    .gradio-container .gr-video video {
+        width: 100% !important;
+        height: auto !important;
+        object-fit: contain !important;
+    }
     """
+
 ) as demo:
     
     gr.Markdown(
@@ -430,38 +446,36 @@ with gr.Blocks(
                 **Note:** Webcam stream starts automatically. Allow camera access in your browser.
                 """
             )
-            
-            with gr.Row():
-                conf_slider_webcam = gr.Slider(
-                    minimum=0.1,
-                    maximum=0.9,
-                    value=0.3,
-                    step=0.05,
-                    label="Confidence Threshold",
-                    info="Minimum confidence for detections"
-                )
-                iou_slider_webcam = gr.Slider(
-                    minimum=0.1,
-                    maximum=0.9,
-                    value=0.5,
-                    step=0.05,
-                    label="IoU Threshold",
-                    info="Overlap threshold for NMS"
-                )
-            
-            # Simple streaming interface like traffic sign detection
-            webcam_interface = gr.Interface(
+
+            with gr.Row(equal_height=True):
+                with gr.Column(scale=1, min_width=280):
+                    conf_slider_webcam = gr.Slider(
+                        minimum=0.1, maximum=0.9, value=0.3, step=0.05,
+                        label="Confidence Threshold",
+                        info="Minimum confidence for detections"
+                    )
+                    iou_slider_webcam = gr.Slider(
+                        minimum=0.1, maximum=0.9, value=0.5, step=0.05,
+                        label="IoU Threshold",
+                        info="Overlap threshold for NMS"
+                    )
+
+                with gr.Column(scale=2):
+                    webcam_in = gr.Image(
+                        sources=["webcam"], streaming=True, label="Webcam",
+                        height=420
+                    )
+                    webcam_out = gr.Image(
+                        label="Live Annotated", height=420
+                    )
+
+            # Nối sự kiện streaming: input webcam → xử lý → output
+            webcam_in.stream(
                 fn=process_webcam_frame,
-                inputs=[
-                    gr.Image(sources=["webcam"], streaming=True),
-                    conf_slider_webcam,
-                    iou_slider_webcam
-                ],
-                outputs=gr.Image(streaming=True),
-                live=True,
-                flagging_mode="never"
+                inputs=[webcam_in, conf_slider_webcam, iou_slider_webcam],
+                outputs=webcam_out
             )
-            
+
             gr.Markdown(
                 """
                 **Tips:**
@@ -471,10 +485,11 @@ with gr.Blocks(
                 - **WSL2 Users**: This may not work - run on Windows or use Video File tab
                 """
             )
+
         
         # Tab 3: Video File Processing
         with gr.Tab("🎬 Video File"):
-            gr.Markdown("### Upload a video file for batch processing")
+            gr.Markdown("### Upload a video")
             
             with gr.Row():
                 conf_slider_video = gr.Slider(
